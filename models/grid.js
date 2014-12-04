@@ -10,8 +10,10 @@ var Class = require('lib/class.js');
 var Grid = Class({
 
     level: 1, // Default level
-    
+
     matrix: [], // Empty grid
+
+    levelAdjustment: 11, // Used to skip repeating the first simple level
     
     maxTiles: 0,
     maxFilledTiles: 0,
@@ -44,19 +46,19 @@ var Grid = Class({
 
     generate: function() {
 
-        console.log('Generating grid...');
+        LOG && console.log('Generating grid...');
 
         // Calculate the grid size for that level
-        this.gridSize = Math.round(this.getLevel() * 1.1) + 1;
-        console.log('gridSize: ' + this.gridSize);
+        this.gridSize = Math.round((this.getLevel()+this.levelAdjustment)/10) + 1;
+        LOG && console.log('gridSize: ' + this.gridSize);
 
         // Calculate the number of tiles for this grid
         this.maxTiles = this.gridSize * this.gridSize;
-        console.log('maxTiles: ' + this.maxTiles);
+        LOG && console.log('maxTiles: ' + this.maxTiles);
 
         // Calculate the number of filled tiles
         this.maxFilledTiles = Math.floor(this.maxTiles / 2);
-        console.log('maxFilledTiles: ' + this.maxFilledTiles);
+        LOG && console.log('maxFilledTiles: ' + this.maxFilledTiles);
 
         // Generate grid
         var matrix = this.getMatrix();
